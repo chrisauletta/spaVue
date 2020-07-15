@@ -8,14 +8,14 @@
 
     <span slot="principal">
 
-      <span v-if="!cadastro">
-        <h2>Login</h2>
+      <!-- <span v-if="!cadastro">-->
+        <h2>Login</h2> 
 
         <input type="text" placeholder="E-mail" v-model="usuario.email">
         <input type="password" placeholder="Senha" v-model="usuario.senha">
         <button class="btn" v-on:click="login()">Entrar</button>
-        <button class="btn orange" v-on:click="cadastro = !cadastro">Cadastre-se</button>
-      </span>
+        <router-link class="btn orange" to="/cadastro">Cadastre-se</router-link>
+      <!-- </span>
       <span v-if="cadastro">
         <h2>Cadastro</h2>
 
@@ -24,11 +24,8 @@
         <input type="password" placeholder="Senha" value="">
         <input type="password" placeholder="Confirme sua Senha" value="">
         <button class="btn">Enviar</button>
-        <button class="btn orange" v-on:click="cadastro = !cadastro">Já tenho conta</button>
-      </span>
-
-
-
+        <router-link class="btn orange" to="/login">Cadastre-se</router-link>
+      </span> -->
     </span>
 
 
