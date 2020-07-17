@@ -46,12 +46,12 @@ export default {
     LoginTemplate
   },
   methods:{
-    login(){
+    cadastro(){
       console.log("ok");
       axios.post(`http://localhost:8000/api/cadastro`, {
         name: this.name,
-        email: this.usuario.email,
-        password:this.usuario.password,
+        email: this.email,
+        password:this.password,
         password_confirmation: this.password_confirmation
       })
       .then(response => {

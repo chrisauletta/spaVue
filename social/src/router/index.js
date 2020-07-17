@@ -3,6 +3,7 @@ import Router from 'vue-router'
 import Home from '@/pages/home/Home'
 import Login from '@/pages/login/Login'
 import Cadastro from '@/pages/cadastro/Cadastro'
+import Perfil from '@/pages/perfil/Perfil'
 
 Vue.use(Router)
 
@@ -20,9 +21,14 @@ export default new Router({
       component: Login
     },
     {
-      path: '/Cadastro',
+      path: '/cadastro',
       name: 'Cadastro',
       component: Cadastro
+    },
+    {
+      path: '/perfil',
+      name: 'Perfil',
+      component: Perfil
     }
   ]
 })
