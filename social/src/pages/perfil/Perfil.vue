@@ -16,7 +16,7 @@
       <div class="file-field input-field">
         <div class="btn">
           <span>File</span>
-          <input type="file" />
+          <input type="file" v-on:change="salvaImagem" />
         </div>
         <div class="file-path-wrapper">
           <input class="file-path validate" type="text" />
@@ -41,7 +41,8 @@ export default {
       name: "",
       email: "",
       password: "",
-      password_confirmation: ""
+      password_confirmation: "",
+      imagem: ""
     };
   },
   created(){
@@ -54,11 +55,25 @@ export default {
     }
   },
   methods:{
+    salvaImagem(e){
+      let arquivo = e.target.files || e.dataTranfer.files;
+      if(!arquivo.length){
+        return;
+      }
+      let reader = new FileReader();
+      reader.onloadend = (e) => {
+        this.imagem = e.target.result;
+      };
+
+      reader.readAsDataURL(arquivo[0]);
+      console.log(this.imagem);
+    },
     atualizar(){
       console.log("ok");
       axios.put(`http://localhost:8000/api/perfil`, {
         name: this.name,
         email: this.email,
+        imagem: this.imagem,
         password:this.password,
         password_confirmation: this.password_confirmation
       },{
@@ -66,10 +81,7 @@ export default {
       })
       .then(response => {
         if(response.data.token){
-          alert("opa cadastrou");
           console.log(response.data);
-        }else if(response.data.status == false){
-          alert("usuario ou senha invalido errado")
         }else{
           let erros = '';
           for(let erro of Object.values(response.data)){
@@ -77,7 +89,6 @@ export default {
           }
           alert(erros);
         }
-        console.log(response)
       })
       .catch(e => {
         //this.errors.push(e)

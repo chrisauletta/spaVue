@@ -66,6 +66,30 @@ Route::middleware('auth:api')->get('/usuario', function (Request $request) {
 });
 
 Route::middleware('auth:api')->put('/perfil', function (Request $request) {
-  $request->user();
-  return $request->all(); 
+//Route::put('/perfil', function (Request $request) {
+  $user = $request->user();
+  $data = $request->all(); 
+  // $valiacao = Validator::make($data, [
+  //   'name' => 'required|string|max:255',
+  //   'email' => 'required|string|email|max:255|unique:users',
+  //   'password' => 'required|string|min:6|confirmed',
+  // ]);
+
+  // if($valiacao->fails()){
+  //   return $valiacao->errors();
+  // }
+  $user->password = bcrypt($data['password']);
+  $user->name = $data['name'];
+  $user->email = $data['email'];
+  if(isset($data['imagem'])){
+    $time = time();
+    $diretorioPai = 'perfils';
+    $diretorioImagem = $diretorioPai.DIRECTORY_SEPARATOR.'perfil_id'.user.id;
+    $ext = substr($data['imagem'], 11, strpos($data['imagem'], ';') - 11);
+    $urlImagem = $diretorioImagem.DIRECTORY_SEPARATOR.$time.'.'.$ext;
+    return ['ok'];
+  }
+  $user->save();
+  $user->token = $user->createToken($user->email)->accessToken;
+  return $user;
 });
