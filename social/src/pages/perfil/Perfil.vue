@@ -3,7 +3,7 @@
     <p>teste</p>
     <span slot="menuesquerdo">
       <img
-        src="https://www.designerd.com.br/wp-content/uploads/2013/06/criar-rede-social.png"
+        :src="usuario.imagem"
         class="responsive-img"
       />
     </span>
@@ -57,6 +57,7 @@ export default {
   methods:{
     salvaImagem(e){
       let arquivo = e.target.files || e.dataTranfer.files;
+      console.log(arquivo);
       if(!arquivo.length){
         return;
       }
@@ -66,6 +67,7 @@ export default {
       };
 
       reader.readAsDataURL(arquivo[0]);
+      console.log('entrou');
       console.log(this.imagem);
     },
     atualizar(){
@@ -82,6 +84,9 @@ export default {
       .then(response => {
         if(response.data.token){
           console.log(response.data);
+          this.usuario = response.data;
+          sessionStorage.setItem('usuario', JSON.stringify(response.data));
+          
         }else{
           let erros = '';
           for(let erro of Object.values(response.data)){
