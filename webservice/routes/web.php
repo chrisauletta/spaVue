@@ -27,4 +27,10 @@ Route::get('/message', function (){
 
 Route::post('/message', function (){
     \App\Message::create(request()->all());
+    return redirect('/message');
+});
+
+Route::get('/send', function (){
+    broadcast(new \App\E)
+    return view('message');
 });
