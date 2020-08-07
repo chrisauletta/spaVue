@@ -1,7 +1,10 @@
 <?php
 
 namespace App\Http\Controllers;
+use Illuminate\Support\Facades\Validator;
+use Auth;
 
+use App\User;
 use Illuminate\Http\Request;
 
 class UsuarioController extends Controller
